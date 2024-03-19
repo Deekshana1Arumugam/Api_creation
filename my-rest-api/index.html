@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        async function addUser() {
+            var userNameInput = document.querySelector('input[name="user name"]');
+            var userName = userNameInput.value;
+           
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                
+                name: userName
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('New user created:', data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+        userNameInput.value=""
+    }
+    
+    </script>
+</head>
+<body>
+    <h1>API Creation Using Node JS</h1>
+    <div class="container">
+        <input type="text" name="user name">
+        <button type="submit" onclick="addUser()">Add</button>
+    </div>
+</body>
+</html>
