@@ -1,0 +1,8 @@
+
+20.03.2024	12:09:42	acbb398c-fa1a-4ca5-88f2-4bc38d89151e	Incoming request: POST /users
+20.03.2024	12:09:42	fca408de-dc25-4f14-be95-e23e46856127	User added: Deekshana
+20.03.2024	12:09:50	e7c14f6e-0a36-4144-a801-6f958d9f3332	Incoming request: POST /users
+20.03.2024	12:09:50	b2e063f9-e450-4e6c-a338-f56d79b17ca5	User added: Surya
+20.03.2024	12:09:54	24cbc1c1-6acc-4e91-9acf-5eb72705f5f6	Incoming request: GET /users
+20.03.2024	12:10:04	6c0be162-16fe-4b66-b362-918c22be79e7	Incoming request: DELETE /users/Surya
+20.03.2024	12:10:46	c5eb102e-3f08-45b8-b0fc-1cb2e222d79f	Incoming request: GET /users

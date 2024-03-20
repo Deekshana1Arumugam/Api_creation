@@ -1,5 +1,6 @@
 const http = require('http');
 const url = require('url');
+const MyEmitter = require('./indexs');
 const cors = require('cors'); 
 
 // Example data
@@ -22,13 +23,13 @@ const server = http.createServer((req, res) => {
         res.end();
         return;
     }
-
+   
     const parsedUrl = url.parse(req.url, true);
 
     const path = parsedUrl.pathname;
 
     const method = req.method;
-
+    MyEmitter.emit('log', `Incoming request: ${req.method} ${req.url}`);
     // GET request to /users
     if (path === '/users' && method === 'GET') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -43,12 +44,26 @@ const server = http.createServer((req, res) => {
         });
         req.on('end', () => {
             const newUser = JSON.parse(body);
-            inc+=1;
-            newUser.id = inc;
+            
             users.push(newUser);
+            MyEmitter.emit('log', `User added: ${newUser.name}`);
             res.writeHead(201, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(newUser));
         });
+    }
+    // DELETE request to /users/
+
+    else if (path.startsWith('/users/') && method === 'DELETE') {
+        const username = parsedUrl.pathname.split('/')[2];
+        const index = users.findIndex(user => user.name === username);
+        if (index !== -1) {
+            users.splice(index, 1);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'User deleted successfully' }));
+        } else {
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('User not found');
+        }
     }
 
     // other routes
